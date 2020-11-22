@@ -1,6 +1,9 @@
-public class Seccion {
-    private int coordenadaY;
-    private int coordenadaX;
+import java.io.Serializable;
+
+public class Seccion implements Serializable {
+    private static final long serialVersionUID = 2L;
+    private int coordenadaY=0;
+    private int coordenadaX=0;
     private boolean funcional=true;    
 
     public int getCoordenadaX() {
@@ -20,5 +23,5 @@ public class Seccion {
     }
     public void setFuncional(boolean funcional) {
         this.funcional = funcional;
-    }    
+    } 
 }
