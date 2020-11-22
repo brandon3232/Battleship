@@ -43,7 +43,7 @@ public class Barco implements Serializable {
     public  void  modificaFuncionalSeccion (int x ,int y) {
         for (int i = 0; i < 3 ; i++) {
             if(secciones[i].getCoordenadaX() == x&&secciones[i].getCoordenadaY()==y) {
-                secciones [i] . setFuncional ( false );
+                secciones[i].setFuncional( false );
             }
         }
     }
@@ -52,7 +52,7 @@ public class Barco implements Serializable {
     // indicando que este barco ya a sido undido
     public  void  actualizarVivo () {
         int undidosTotales = 0 ;
-        for ( int i =  0 ; i < secciones.length;i++) {
+        for ( int i = 0 ; i < secciones.length;i++) {
             if (!(secciones[i].getFuncional())) {
                 undidosTotales+=1 ;
             }
