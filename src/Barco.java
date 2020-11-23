@@ -14,6 +14,19 @@ public class Barco implements Serializable {
         }
     }
 
+    //costructor que resive 2 coordenadas para asignarlas tanto al barco
+    //como a cada una de sus secciones
+    public Barco(int x, int y){
+        coordenadaX=x;
+        coordenadaY=y;
+        for (int i = 0; i < secciones.length; i++) {
+            secciones[i]=new Seccion();
+            secciones[i].setCoordenadaX(x+i);
+            secciones[i].setCoordenadaY(y);
+        
+        }
+    }
+
     public int getX() {
         return coordenadaX;
     }

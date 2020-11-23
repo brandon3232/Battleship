@@ -12,6 +12,26 @@ public class Tablero {
     Casilla[][] matriz = new Casilla [10][10];
     Barco[] flota= new Barco[10];
 
+    //al llamar este constructor lo que pasarà es que se leerá automaticamente el archivo
+    //serializado, se asignaran las coordenadas de los barcos y aparecerá el tablero en pantalla
+    public Tablero(){
+        for (int i = 0; i < 10; i++) {
+            for (int j = 0; j < 10; j++) {
+                matriz[i][j]=new Casilla();
+            }
+        }
+
+        try {
+            leeArchivo();
+            inicializaTablero();
+        } catch (IOException e) {
+            System.out.println("ERROR: no se pudo abrir el archivo");
+            System.exit(0);
+        } catch(ClassNotFoundException e){
+            System.out.println(e.getMessage());
+        }
+    }
+
     //imprime el tablero inicial
     public static void inicializaTablero(){
         for (int i = 0; i < 10; i++) {
@@ -96,36 +116,5 @@ public class Tablero {
                 }
             }
         }
-    }
-
-    public static void main(String args[]) throws ClassNotFoundException{
-        Tablero t= new Tablero();
-        try {
-            t.leeArchivo();
-            inicializaTablero();
-            t.actualizaTablero();
-        } catch (IOException e) {
-            System.out.println("ERROR: no se pudo abrir el archivo");
-            System.exit(0);
-        }
-        //leer();    
-    }    
-    
-    // metodo para hacer pruebas de lectura del archivo serializado
-    public static void leer() {
-        Barco b;
-        try {
-            ObjectInputStream f = new ObjectInputStream (new FileInputStream("flota1"));
-            for (int k = 0; k < 10; k++) {
-            
-                b = (Barco)f.readObject();
-                System.out.println(b);
-            }
-            f.close();
-        } catch (Exception e) {
-            System.out.println("ERROR: no se pudo abrir el archivo");
-            System.exit(0);
-        }
-
-    }
+    }  
 } 
