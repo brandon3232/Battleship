@@ -14,7 +14,7 @@ public class Tablero {
 
     //al llamar este constructor lo que pasarà es que se leerá automaticamente el archivo
     //serializado, se asignaran las coordenadas de los barcos y aparecerá el tablero en pantalla
-    public Tablero(){
+    public Tablero(String file){
         for (int i = 0; i < 10; i++) {
             for (int j = 0; j < 10; j++) {
                 matriz[i][j]=new Casilla();
@@ -22,7 +22,7 @@ public class Tablero {
         }
 
         try {
-            leeArchivo();
+            leeArchivo(file);
             inicializaTablero();
         } catch (IOException e) {
             System.out.println("ERROR: no se pudo abrir el archivo");
@@ -52,8 +52,8 @@ public class Tablero {
 
     //metodo que lee un archivo serializado con los objetos barco, los mete en el arreglo flota
     // y asigna las coordenadas correspondientes de cada barco en la matriz 
-    public void leeArchivo()throws IOException, ClassNotFoundException{
-        ObjectInputStream file = new ObjectInputStream (new FileInputStream("flota1"));
+    public void leeArchivo(String nameFile)throws IOException, ClassNotFoundException{
+        ObjectInputStream file = new ObjectInputStream (new FileInputStream(nameFile));
         Barco barco;
         int x;
         int y;
@@ -92,7 +92,7 @@ public class Tablero {
                     if (checaCasilla(i, j)==NO_BARCO_Y_CHECK) {
                         System.out.print("\t0");
                     }else{
-                        System.out.println("\tB");
+                        System.out.print("\tB");
                     }
                 }
             }
@@ -116,5 +116,16 @@ public class Tablero {
                 }
             }
         }
-    }  
+    } 
+    
+    public int barcosHundidos(){
+        int contador=0;
+        for (int i = 0; i < 10; i++) {
+            if (!flota[i].getVivo()) {
+                contador+=1;
+            }
+        }
+        return contador;
+
+    }
 } 
