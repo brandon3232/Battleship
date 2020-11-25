@@ -1,10 +1,9 @@
 import java.util.*;
 import java.util.Scanner.*;
 import java.io.*;
-import java 
 
 
-public class Usuario implements Serializable
+public class Usuarioo
 { 
     String nombre;
     int edad;
@@ -34,27 +33,27 @@ public class Usuario implements Serializable
                 }
         }
         
-        //public void guardaUsuario() throws IOException
-        //{
-            //String nombre;
-            //Scanner lee= new Scanner(System.in);
-            //System.out.println("Dame el nombre del archivo binario: ");
-            //nombre = lee.nextLine();
-            
-            //DataOutputStream f = new DataOutputStream (new FileOutputStream(nombre));
-            
-            //f.close();
-        //}
-         
-        public void LeerArch () 
+        public void guardaUsuario() throws IOException
         {
+            String nombre;
+            Scanner lee= new Scanner(System.in);
+            System.out.println("Dame el nombre del archivo binario: ");
+            nombre = lee.nextLine();
+            
+            DataOutputStream f = new DataOutputStream (new FileOutputStream(nombre));
+            
+            f.close();
+        }
+         
+        //public void LeerArch () 
+        //{
         //private String nombre="temporal.dat";
-        try{
-            ObjectInputStream f =new ObjectInputStream(new FileInputStream(this.ruta_a));
-        }
+        //try{
+         //   ObjectInputStream f =new ObjectInputStream(new FileInputStream(this.ruta_a));
+        //}
 
 
-        }
+        //}
 
 
         
