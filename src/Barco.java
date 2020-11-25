@@ -59,19 +59,39 @@ public class Barco implements Serializable {
                 secciones[i].setFuncional( false );
             }
         }
+        actualizarVivo();
     }
     // metodo que verifica todas las secciones de cada barco, si las 3 estan
     // undidas cambiarà el estado de la variable vivo del barco a false
     // indicando que este barco ya a sido undido
-    public  void  actualizarVivo () {
+    public void actualizarVivo() {
         int undidosTotales = 0 ;
         for ( int i = 0 ; i < secciones.length;i++) {
             if (!(secciones[i].getFuncional())) {
-                undidosTotales+=1 ;
+                undidosTotales+=1;
             }
         }
         if (undidosTotales == 3 ) {
             vivo = false ;
+            
+        }
+    }
+
+    public void buscaBarco(int x, int y){
+        if (coordenadaX==x&&coordenadaY==y) {
+            modificaFuncionalSeccion(x, y);
+            actualizarVivo();
+        }else{
+            if ((coordenadaX + 1)==x&&(coordenadaY)==y) {
+                modificaFuncionalSeccion(x, y);
+                actualizarVivo();
+                }
+            else{
+                if ((coordenadaX + 2)==x&&(coordenadaY)==y) {
+                modificaFuncionalSeccion(x, y);
+                actualizarVivo();
+                }
+            }
         }
     }
 }
