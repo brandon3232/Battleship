@@ -1,9 +1,9 @@
-import java.util.*;
 import java.util.Scanner.*;
 import java.io.*;
+impor java.swing.JOptionPane;
 
 
-public class Usuarioo
+public class Usuario
 { 
     String nombre;
     int edad;
@@ -33,25 +33,23 @@ public class Usuarioo
                 }
         }
         
-        public void guardaUsuario() throws IOException
+        public void guardaUsuario(int barcosHundidos, boolean persona) throws IOException
         {
-            boolean persona=true;
-            String archivo;
-            Scanner lee= new Scanner(System.in);
-            System.out.println("Dame el nombre del archivo serializado: ");
-            archivo = lee.nextLine();
-            ObjectOutputStream f = new ObjectOutputStream (new FileOutputStream(archivo));
-              
-             if (persona = true){
-                System.out.println("\nIngrese su nombre:");
-                nombre = lee.nextLine();
-                System.out.println("\nIngrese su edad:");
-                edad = lee.nextInt();
-                System.out.println("\nUsted ha ganado el juego con ("+barcosHundidos+")");
-                else 
-                System.out.println("\nHa perdido el juego");
-             }
             
+            DataOutputStream f = new DataOutputStream (new FileOutputStream(nombre, true));
+            do {
+               nombre
+
+            }
+
+            //            f.writeInt(l);
+            //            f.writeInt(c);
+
+            //se tiene que guardar los datos:
+            //nombre
+            //edad
+            //si ganó o perdiò
+            //numero de barcos hundidos
             f.close();
         }
          
@@ -89,7 +87,7 @@ public class Usuarioo
           }
        }
 
-        }
+        
 
 
         
@@ -98,4 +96,3 @@ public class Usuarioo
                
         }
 
-}
