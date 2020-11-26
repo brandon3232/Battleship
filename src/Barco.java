@@ -82,12 +82,12 @@ public class Barco implements Serializable {
             modificaFuncionalSeccion(x, y);
             actualizarVivo();
         }else{
-            if ((coordenadaX + 1)==x&&(coordenadaY)==y) {
+            if ((coordenadaX + 1 )==x&&(coordenadaY )==y) {
                 modificaFuncionalSeccion(x, y);
                 actualizarVivo();
                 }
             else{
-                if ((coordenadaX + 2)==x&&(coordenadaY)==y) {
+                if ((coordenadaX +2 )==x&&(coordenadaY)==y) {
                 modificaFuncionalSeccion(x, y);
                 actualizarVivo();
                 }

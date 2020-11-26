@@ -1,6 +1,6 @@
 import java.util.Scanner;
 import java.util.ArrayList;
-import java.io.*;
+
 
 public class Battleship {
 
@@ -18,24 +18,13 @@ public class Battleship {
 
      return desicion;
     }
-    
 
-    public static void main(String args []) throws IOException{
-        ArrayList<Usuario> usuarios = new ArrayList<Usuario>();
-        Scanner scanner = new Scanner (System.in);
-        int tiroX, tiroY, numTiros=10,numBarcosHundidos=0;
-        int d=0;
-        Tablero t;
-        //boolean usuario;
-          
-        for(;;) {
-            d = menu();
-        switch (d){
-            case 1:
-                //int n = (int) (Math.random() * (5 - 1)) + 1;
+    public static Tablero iniciaTablero(){
+
+        //int n = (int) (Math.random() * (5 - 1)) + 1;
                 //switch (n) {
                 // case 1:
-                     t = new Tablero("flota1"); 
+                Tablero t = new Tablero("flota1"); 
                 //      break;
                 //    case 2:
                 //       t = new Tablero("flota2");
@@ -47,79 +36,103 @@ public class Battleship {
                 //      t = new Tablero("flota4");
                 //       break;
                 //}
-            
+                return t;
+    }
+    
+    public static Usuario creaUsuario(){
 
-                //Crear el usuario
+        int edad = 0;
+        String nombre = "";
+        Scanner scanner = new Scanner (System.in);
+        Usuario usuario;
+        
+        System.out.println("Hola y Bienvenido seas a Battleship");
+        System.out.println("¿Cual es su nombre?");
+        nombre = scanner.nextLine();
+        
+        try {
+            System.out.println("¿Cual es su edad?");
+            edad = Integer.parseInt(scanner.nextLine());
+
+            if (edad >= 18) {
+                System.out.println("Que disfrutes el juego");
                 
-                    int edad = 0;
-                    String nombre = "";
-                    Usuario usuario;
+            } else {
+                System.out.println("LO SENTIMOS, el juego solo es para personas mayores de 18 años.");
+                System.exit(0);
+            }
 
-                    System.out.println("Hola y Bienvenido seas a Battleship");
-                    System.out.println("¿Cual es su nombre?");
-                    nombre = scanner.nextLine();
-                    try {
-                        System.out.println("¿Cual es su edad?");
-                        edad = Integer.parseInt(scanner.nextLine());
-                    } catch (Exception e) {
-                        System.out.println("ERROR: no es un numero ENTERO");
-                        continue;
-                    }
-            
-                    if (edad >= 18) {
-                        System.out.println("Que disfrutes el juego");
-                        usuario = new Usuario(nombre, edad);
-                    } else {
-                        System.out.println("LO SENTIMOS, el juego solo es para personas mayores de 18 años.");
-                        continue;
-                    }
+        } catch (Exception e) {
+            System.out.println("ERROR: no es un numero ENTERO");
+            System.exit(0);
+        }
 
-                
+        usuario = new Usuario(nombre, edad);
+        return usuario;
+
+    }
+
+//---------------------------------MAIN---------------------------------//
+    public static void main(String args []) {
+
+        ArrayList<Usuario> usuarios = new ArrayList<Usuario>();
+        Scanner scanner = new Scanner (System.in);
+        int tiroX;
+        int tiroY;
+        int numTiros=9;
+        int numBarcosHundidos=1;
+        int d=0;
+        Tablero t;
+        Usuario usuario;
+          
+        for(;;) {
+            d = menu();
+        switch (d){
+            case 1:
+            t=iniciaTablero();  
+            usuario=creaUsuario();
            
-                do{
-                    System.out.println("Seleccione la linea en la que desea tirar:");
-                    tiroX = scanner.nextInt();
-                    System.out.println("Seleccione la columna en la que desea tirar:");
-                    tiroY = scanner.nextInt();//TODO:poner try-catch por si mete algo que no sea numero y crear excepcion
-                    //por si introduce una coordenada fuera de rango
+            do{
+                System.out.println("Seleccione la linea en la que desea tirar:");
+                tiroY = scanner.nextInt();
+                System.out.println("Seleccione la columna en la que desea tirar:");
+                tiroX = scanner.nextInt();//TODO:poner try-catch por si mete algo que no sea numero y crear excepcion
+                //por si introduce una coordenada fuera de rango
 
-                    for(int clear = 0; clear < 1000; clear++) 
-                    { 
-                    System.out.println("\b") ; 
-                    } 
-                 switch (t.checaCasilla(tiroX, tiroY)) {
-                     case 1,2:
-                            System.out.println("YA HABIAS ELEGIDO ESA CASILLA");
-                            numTiros = numTiros - 1;
-                        break;
-                        case 3:
-                            System.out.println("HAZ ACERTADO");//TODO: implementar un aviso cuando se a hundido un barco
-                            t.matriz[tiroX][tiroY].setCheck(true);
-                            for (int i = 0; i < 10; i++) {
-                                 t.flota[i].buscaBarco(tiroX, tiroY);
-                            }
-                        break;
-                        case 4:
-                            System.out.println("HAZ FALLADO, NO HAY BARCO");
-                            t.matriz[tiroX][tiroY].setCheck(true);
-                            numTiros = numTiros - 1;
-                        break;
-                    }
-                    numBarcosHundidos = t.barcosHundidos();        
-                    t.actualizaTablero(); 
-                    System.out.println("Intendos restantes:"+numTiros+"\t\t Barcos Hundidos: "+numBarcosHundidos);
-                       
-                }while (numTiros!=0 || numBarcosHundidos!=10);
+                clearConsole();
+
+                switch (t.checaCasilla(tiroX, tiroY)) {
+                    case 1,2:
+                        System.out.println("YA HABIAS ELEGIDO ESA CASILLA");
+                        numTiros = numTiros - 1;
+                    break;
+                    case 3:
+                        System.out.println("HAZ ACERTADO");//TODO: implementar un aviso cuando se a hundido un barco
+                        t.matriz[tiroY][tiroX].setCheck(true);
+                        for (int i = 0; i < 10; i++) {
+                                t.flota[i].buscaBarco(tiroX, tiroY);
+                        }
+                    break;
+                    case 4:
+                        System.out.println("HAZ FALLADO, NO HAY BARCO");
+                        t.matriz[tiroY][tiroX].setCheck(true);
+                        numTiros = numTiros - 1;
+                    break;
+                }
+                numBarcosHundidos = t.barcosHundidos();        
+                t.actualizaTablero(); 
+                System.out.println("Intendos restantes:"+numTiros+"\t\t Barcos Hundidos: "+(numBarcosHundidos));
+                    
+            }while (!(numTiros==0 || numBarcosHundidos==10));//TODO: arreglar el problema de que no finaliza
             
              if (numBarcosHundidos == 10)
                 {
                    System.out.println ("FELICIDADES...!!!!! , HAZ HUNDIDO TODOS LOS BARCOS");
-                    //TODO: Manda a traer el metodo para guardar el usuario junto con la palabra GANADOR
+            
                     usuario.setGanador(true);
                     usuario.setBarcosHundidos(numBarcosHundidos);
              }else{
                  System.out.println ("GAME OVER, HAZ AGOTADO TUS TIROS");
-                 //TODO: Manda a traer el metodo para guardar el usuario junto con la palabra PERDEDOR y el numero de barcos hundidos
                  usuario.setGanador(false);
                     usuario.setBarcosHundidos(numBarcosHundidos);
              }
@@ -127,7 +140,6 @@ public class Battleship {
             
                 break;
             case 2:
-             //TODO: Mandar a traer el metodo que muestra a los usuarios ingresados con sus puntuajes
              for (Usuario user : usuarios) {
                  System.out.println(user.getNombre() + " " + user.getEdad() + " años " + (user.getGanador() ? "Es ganador " : "Perdio ") + user.getBarcosHundidos() + " barcos hundidos." );
              }
@@ -139,4 +151,24 @@ public class Battleship {
         }
         
     }
+    public static final void clearConsole()
+{
+       try
+       {
+           final String os = System.getProperty("os.name");
+
+           if (os.contains("Windows"))
+           {
+               Runtime.getRuntime().exec("cls");
+           }
+           else
+           {
+               Runtime.getRuntime().exec("clear");
+           }
+       }
+       catch (final Exception e)
+       {
+           System.out.println("ERROR: falló limpiar la consola");
+       }
+}
 }

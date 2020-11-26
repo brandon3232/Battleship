@@ -70,7 +70,7 @@ public class Tablero {
             for (int j = 0; j < 3; j++) {
                 x=flota[i].secciones[j].getCoordenadaX();
                 y=flota[i].secciones[j].getCoordenadaY();
-                matriz[x][y].setHayBarco(true);
+                matriz[y][x].setHayBarco(true);
             }
         }
     }
@@ -86,10 +86,10 @@ public class Tablero {
             System.out.print((i));
             for (int j = 0; j<10; j++) {
                 
-                if (checaCasilla(i, j)==BARCO_Y_NO_CHECK||checaCasilla(i, j)==NO_BARCO_Y_NO_CHECK) {
+                if (checaCasilla(j, i)==BARCO_Y_NO_CHECK||checaCasilla(j, i)==NO_BARCO_Y_NO_CHECK) {
                     System.out.print("\t-");
                 }else{
-                    if (checaCasilla(i, j)==NO_BARCO_Y_CHECK) {
+                    if (checaCasilla(j, i)==NO_BARCO_Y_CHECK) {
                         System.out.print("\t0");
                     }else{
                         System.out.print("\tB");
@@ -103,13 +103,13 @@ public class Tablero {
     //metodo que ferifica el estado de la casilla en las coordenadas ingresadas y regresa los 4 
     // estados posibles de esa casilla
     public int checaCasilla(int x, int y){
-        if (!matriz[x][y].getHayBarco()&&!matriz[x][y].getCheck()) {
+        if (!matriz[y][x].getHayBarco()&&!matriz[y][x].getCheck()) {
             return NO_BARCO_Y_NO_CHECK;
         }else{
-            if (matriz[x][y].getHayBarco()&&!matriz[x][y].getCheck()) {
+            if (matriz[y][x].getHayBarco()&&!matriz[y][x].getCheck()) {
                 return BARCO_Y_NO_CHECK;
             }else{
-                if (!matriz[x][y].getHayBarco()&&matriz[x][y].getCheck()) {
+                if (!matriz[y][x].getHayBarco()&&matriz[y][x].getCheck()) {
                     return NO_BARCO_Y_CHECK;
                 }else{  
                     return BARCO_Y_CHECK;
