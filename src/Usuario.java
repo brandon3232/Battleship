@@ -44,12 +44,11 @@ public class Usuario implements Serializable {
     }
     
     public void guardaUsuario() throws IOException {
-        FileOutputStream nombre = new FileOutputStream(nombre, true);
+        FileOutputStream fo = new FileOutputStream(nombre, true);
         DataOutputStream file = new DataOutputStream(fo);
 
-        file.writeObject(this);
+        file.writeObject(Usuario);
         file.close();
-        nombre.close();
 
         // se tiene que guardar los datos:
         // nombre

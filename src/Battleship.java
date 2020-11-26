@@ -73,14 +73,14 @@ public class Battleship {
     }
 
 //---------------------------------MAIN---------------------------------//
-    public static void main(String args []) {
+    public static void main(String[] args ) {
 
         ArrayList<Usuario> usuarios = new ArrayList<Usuario>();
         Scanner scanner = new Scanner (System.in);
         int tiroX;
         int tiroY;
-        int numTiros=9;
-        int numBarcosHundidos=1;
+        int numTiros=10;
+        int numBarcosHundidos=0;
         int d=0;
         Tablero t;
         Usuario usuario;
@@ -100,6 +100,7 @@ public class Battleship {
                 //por si introduce una coordenada fuera de rango
 
                 clearConsole();
+                
 
                 switch (t.checaCasilla(tiroX, tiroY)) {
                     case 1,2:
@@ -119,11 +120,13 @@ public class Battleship {
                         numTiros = numTiros - 1;
                     break;
                 }
+
                 numBarcosHundidos = t.barcosHundidos();        
                 t.actualizaTablero(); 
+
                 System.out.println("Intendos restantes:"+numTiros+"\t\t Barcos Hundidos: "+(numBarcosHundidos));
                     
-            }while (!(numTiros==0 || numBarcosHundidos==10));//TODO: arreglar el problema de que no finaliza
+            }while (!(numTiros==0 || numBarcosHundidos==10));
             
              if (numBarcosHundidos == 10)
                 {
@@ -132,6 +135,7 @@ public class Battleship {
                     usuario.setGanador(true);
                     usuario.setBarcosHundidos(numBarcosHundidos);
              }else{
+
                  System.out.println ("GAME OVER, HAZ AGOTADO TUS TIROS");
                  usuario.setGanador(false);
                     usuario.setBarcosHundidos(numBarcosHundidos);
@@ -152,23 +156,12 @@ public class Battleship {
         
     }
     public static final void clearConsole()
-{
-       try
-       {
-           final String os = System.getProperty("os.name");
-
-           if (os.contains("Windows"))
-           {
-               Runtime.getRuntime().exec("cls");
-           }
-           else
-           {
-               Runtime.getRuntime().exec("clear");
-           }
-       }
-       catch (final Exception e)
-       {
-           System.out.println("ERROR: falló limpiar la consola");
-       }
-}
+    {
+        try {
+            if (System.getProperty("os.name").contains("Windows"))
+                new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
+            else
+                System.out.print("\033\143");
+        } catch (Exception e) {System.out.println("ERROR: no se puedo limpiar la consola");}
+    }
 }
