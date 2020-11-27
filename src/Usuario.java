@@ -1,73 +1,65 @@
 import java.util.Scanner.*;
 import java.io.*;
 
-public class Usuario implements Serializable {
-
+public class Usuario {
     private String nombre;
     private int edad;
-    private boolean ganador; //Verdadero si es ganador; falso contrario
+    private boolean ganador;
     private int barcosHundidos;
 
     public Usuario(String nombre, int edad) {
         this.nombre = nombre; this.edad = edad;
     }
 
-    public void crearArchivo() throws IOException {
-        DataOutputStream a = new DataOutputStream(
-            new FileOutputStream(nombre + "_" + edad + ".bin", true)
-        );
-        Scanner lee = new Scanner();
-    }
-
     public void setGanador(boolean ganador) {
         this.ganador = ganador;
     }
-
     public void setBarcosHundidos(int barcosHundidos) {
         this.barcosHundidos = barcosHundidos;
     }
 
-    public String getNombre() {
-        return this.nombre;
-    }
 
-    public int getEdad() {
-        return this.edad;
-    }
-
-    public boolean getGanador() {
-        return this.ganador;
-    }
-
-    public int getBarcosHundidos() {
-        return this.barcosHundidos;
-    }
-    
     public void guardaUsuario() throws IOException {
-        FileOutputStream fo = new FileOutputStream(nombre, true);
+        
+
+        
+
+        FileOutputStream fo = new FileOutputStream("datosUsuarios", true);
         DataOutputStream file = new DataOutputStream(fo);
 
-        file.writeObject(Usuario);
+        file.writeUTF(nombre);
+        file.writeInt(edad);
+        if (ganador) {
+            file.writeUTF("ganador");
+        }else{
+            file.writeUTF("perdedor");
+        }
+        file.writeInt(barcosHundidos);
         file.close();
 
-        // se tiene que guardar los datos:
-        // nombre
-        // edad
-        // si ganó o perdiò
-        // numero de barcos hundidos
     }
 
-    public static Usuario leerArchBin (String nAr) throws IOException
+    public static void leerArchBin () throws IOException
         {
-            
-        DataInputStream nombre = new DataInputStream(new FileInptStream(nAr));
-        DataOutputStream file = new DataOutputStream(fo);
+        DataInputStream file = new DataInputStream(new FileInputStream("datosUsuarios"));
+        String nombre;
+        int edad;
+        String ganador;
+        int barcosHundidos;
+        try {
+            while (true) {
+                nombre=file.readUTF();
+                edad=file.readInt();
+                ganador=file.readUTF();
+                barcosHundidos=file.readInt();
 
-        Usuario usuario = (Usuario) file.readObject();
+                System.out.println(nombre+"\t\t"+edad+" años\t"+"\t"+ganador+"\t"+barcosHundidos+" barcos hundidos");
+            }
+        } catch (EOFException e) {}
         file.close();
-        nombre.close();
-        return usuario;
+        
         }
-
-  
+    
+        
+    
 }

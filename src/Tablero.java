@@ -118,6 +118,27 @@ public class Tablero {
         }
     } 
     
+    public void mostrarBarcos(){
+        for (int i = 0; i < 10; i++) {
+            System.out.print("\t" + i);
+        }
+        System.out.println("\n");
+        for (int i = 0; i < 10; i++) {
+
+            System.out.print((i));
+            for (int j = 0; j<10; j++) {
+                
+                if (matriz[i][j].getHayBarco()) {
+                    System.out.print("\tB");
+                }else{
+                    System.out.print("\t-");
+                }
+            }
+            System.out.println("\n");
+        }
+    }
+
+
     public int barcosHundidos(){
         int contador=0;
         for (int i = 0; i < 10; i++) {
