@@ -169,7 +169,9 @@ public class Battleship {
     {
         try {
             if (System.getProperty("os.name").contains("Windows"))
-                new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
+                for (int i = 0; i < 25; i++) {
+                    System.out.println("");
+                }
             else
                 System.out.print("\033\143");
         } catch (Exception e) {System.out.println("ERROR: no se puedo limpiar la consola");}
